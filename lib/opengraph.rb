@@ -10,6 +10,7 @@ module OpenGraph
   # Pass <tt>false</tt> for the second argument if you want to
   # see invalid (i.e. missing a required attribute) data.
   def self.fetch(uri, strict = true)
+    RestClient.proxy = ENV['HTTP_PROXY'] if ENV['HTTP_PROXY']
     parse(RestClient.get(uri).body, strict)
   rescue RestClient::Exception, SocketError
     false
